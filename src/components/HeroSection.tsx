@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Heart, Volume2, VolumeX } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 const HeroSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
+  // Effect untuk menginisialisasi audio
   useEffect(() => {
-    // Initialize audio with a wedding song URL (placeholder)
-    const audioElement = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.wav');
+    const audioElement = new Audio('/src/components/music/beautiful-in-white.mp3');
     audioElement.loop = true;
     audioElement.volume = 0.3;
     setAudio(audioElement);
@@ -16,10 +15,34 @@ const HeroSection = () => {
     return () => {
       if (audioElement) {
         audioElement.pause();
-        audioElement.remove();
+        audioElement.removeAttribute('src'); 
+        audioElement.load();
       }
     };
   }, []);
+
+  // Effect untuk mendengarkan interaksi pengguna (scroll) dan memutar musik
+  useEffect(() => {
+    const handleScroll = () => {
+      if (audio && !isPlaying) {
+        audio.play().then(() => {
+          setIsPlaying(true);
+        }).catch(error => {
+          console.error("Autoplay was prevented:", error);
+        });
+        // Hapus event listener setelah interaksi pertama
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+
+    // Tambahkan event listener untuk scroll
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      // Pastikan listener dihapus saat komponen tidak lagi digunakan
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [audio, isPlaying]);
 
   const toggleMusic = () => {
     if (audio) {
@@ -32,6 +55,19 @@ const HeroSection = () => {
     }
   };
 
+  const handleLihatUndanganClick = () => {
+    // Mulai memutar musik saat tombol diklik
+    if (audio && !isPlaying) {
+      audio.play().then(() => {
+        setIsPlaying(true);
+      }).catch(error => {
+        console.error("Autoplay was prevented:", error);
+      });
+    }
+    // Lanjutkan ke aksi scroll yang sudah ada
+    document.getElementById('details')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-hero relative overflow-hidden px-4">
       {/* Background Decorative Elements */}
@@ -42,18 +78,17 @@ const HeroSection = () => {
       </div>
 
       {/* Music Control */}
-      <Button
-        variant="outline"
-        size="icon"
-        className="absolute top-6 right-6 bg-card/80 border-soft-pink/30 hover:bg-soft-pink/20 transition-smooth"
+      <button
+        className="absolute top-6 right-6 p-2 rounded-full bg-card/80 border border-soft-pink/30 hover:bg-soft-pink/20 transition-all z-20"
         onClick={toggleMusic}
+        aria-label="Toggle Music"
       >
         {isPlaying ? (
           <Volume2 className="w-4 h-4 text-strong-pink" />
         ) : (
           <VolumeX className="w-4 h-4 text-strong-pink" />
         )}
-      </Button>
+      </button>
 
       {/* Main Content */}
       <div className="text-center z-10 max-w-4xl mx-auto">
@@ -91,14 +126,12 @@ const HeroSection = () => {
             hingga maut memisahkan kami.
           </p>
           
-          <Button 
-            className="bg-gradient-to-r from-strong-pink to-golden hover:from-strong-pink/80 hover:to-golden/80 text-white px-8 py-4 text-lg font-medium rounded-full shadow-romantic transition-smooth"
-            onClick={() => {
-              document.getElementById('details')?.scrollIntoView({ behavior: 'smooth' });
-            }}
+          <button 
+            className="bg-gradient-to-r from-strong-pink to-golden hover:from-strong-pink/80 hover:to-golden/80 text-white px-8 py-4 text-lg font-medium rounded-full shadow-romantic transition-all"
+            onClick={handleLihatUndanganClick}
           >
             Lihat Undangan
-          </Button>
+          </button>
         </div>
       </div>
 
