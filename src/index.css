@@ -2,41 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Romantic Wedding Design System - Risang & Dina */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Wedding Color Palette - Romantic Cream, Ivory & Rose */
+    --background: 35 25% 98%;
+    --foreground: 25 15% 25%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 35 35% 96%;
+    --card-foreground: 25 15% 25%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 35 35% 96%;
+    --popover-foreground: 25 15% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Romantic Pink & Rose Tones */
+    --primary: 340 85% 65%;
+    --primary-foreground: 35 25% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --strong-pink: 340 75% 55%;
+    --soft-pink: 340 45% 85%;
+    --pale-pink: 340 25% 95%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Gold & Cream Accents */
+    --golden: 45 85% 70%;
+    --golden-light: 45 65% 85%;
+    --cream: 35 35% 94%;
+    --ivory: 35 25% 96%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --secondary: 35 35% 94%;
+    --secondary-foreground: 25 15% 25%;
+
+    --muted: 35 25% 92%;
+    --muted-foreground: 25 10% 50%;
+
+    --accent: 340 45% 85%;
+    --accent-foreground: 25 15% 25%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 35 25% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 35 25% 88%;
+    --input: 35 25% 88%;
+    --ring: 340 85% 65%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
+
+    /* Wedding Gradients */
+    --gradient-romantic: linear-gradient(135deg, hsl(var(--soft-pink)), hsl(var(--pale-pink)));
+    --gradient-golden: linear-gradient(135deg, hsl(var(--golden)), hsl(var(--golden-light)));
+    --gradient-ethereal: linear-gradient(180deg, hsl(var(--ivory)), hsl(var(--cream)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--ivory)) 0%, hsl(var(--soft-pink)) 100%);
+
+    /* Romantic Shadows */
+    --shadow-romantic: 0 10px 40px -10px hsl(var(--strong-pink) / 0.2);
+    --shadow-golden: 0 8px 32px -8px hsl(var(--golden) / 0.3);
+    --shadow-soft: 0 4px 20px -4px hsl(var(--muted) / 0.4);
+
+    /* Wedding Animations */
+    --transition-romantic: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +126,186 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* Wedding Typography */
+  .font-sacramento {
+    font-family: 'Sacramento', cursive;
+  }
+
+  .font-dancing {
+    font-family: 'Dancing Script', cursive;
+  }
+
+  /* Custom Wedding Animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes rings-unite {
+    0% {
+      transform: translateX(-50px) rotate(-45deg);
+      opacity: 0;
+    }
+    50% {
+      transform: translateX(0) rotate(0deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateX(0) rotate(0deg);
+      opacity: 1;
+    }
+  }
+
+  @keyframes rings-unite-second {
+    0% {
+      transform: translateX(50px) rotate(45deg);
+      opacity: 0;
+    }
+    50% {
+      transform: translateX(0) rotate(0deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateX(0) rotate(0deg);
+      opacity: 1;
+    }
+  }
+
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes heart-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .animate-fade-in-scale {
+    animation: fadeInScale 0.6s ease-out;
+  }
+
+  .animate-rings-unite {
+    animation: rings-unite 2s ease-out;
+  }
+
+  .animate-rings-unite-second {
+    animation: rings-unite-second 2s ease-out 0.5s both;
+  }
+
+  .animate-sparkle {
+    animation: sparkle 2s ease-in-out infinite;
+  }
+
+  .animate-heart-pulse {
+    animation: heart-pulse 2s ease-in-out infinite;
+  }
+
+  /* Romantic Gradients */
+  .bg-gradient-romantic {
+    background: var(--gradient-romantic);
+  }
+
+  .bg-gradient-golden {
+    background: var(--gradient-golden);
+  }
+
+  .bg-gradient-ethereal {
+    background: var(--gradient-ethereal);
+  }
+
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  /* Custom Wedding Shadows */
+  .shadow-romantic {
+    box-shadow: var(--shadow-romantic);
+  }
+
+  .shadow-golden {
+    box-shadow: var(--shadow-golden);
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* Smooth Transitions */
+  .transition-romantic {
+    transition: var(--transition-romantic);
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+
+  /* Cursor Trail Elements */
+  .cursor-trail {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: hsl(var(--strong-pink));
+    opacity: 0.7;
+    animation: sparkle 1s ease-out forwards;
+  }
+
+  /* Wedding Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--ivory));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--soft-pink));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--strong-pink));
   }
 }

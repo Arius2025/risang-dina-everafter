@@ -57,6 +57,19 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Wedding Color Palette
+        "strong-pink": "hsl(var(--strong-pink))",
+        "soft-pink": "hsl(var(--soft-pink))",
+        "pale-pink": "hsl(var(--pale-pink))",
+        golden: "hsl(var(--golden))",
+        "golden-light": "hsl(var(--golden-light))",
+        cream: "hsl(var(--cream))",
+        ivory: "hsl(var(--ivory))",
+      },
+      fontFamily: {
+        'sacramento': ['Sacramento', 'cursive'],
+        'dancing': ['Dancing Script', 'cursive'],
+        'poppins': ['Poppins', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
